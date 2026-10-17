@@ -15,7 +15,14 @@ const mime = {
 const server = http.createServer(async (req, res) => {
   try {
     const requestPath = req.url === '/' ? '/index.html' : req.url;
-    const filePath = path.join(root, decodeURIComponent(requestPath));
+    const cleanPath = decodeURIComponent(requestPath).split('?')[0];
+    const safePath = path.posix.normalize(cleanPath).replace(/^(\.\.(\/|\\|$))+/, '');
+    const filePath = path.resolve(root, `.${safePath}`);
+    if (!filePath.startsWith(root)) {
+      res.writeHead(403);
+      res.end('forbidden');
+      return;
+    }
     const data = await fs.readFile(filePath);
     const ext = path.extname(filePath);
     res.writeHead(200, { 'content-type': mime[ext] || 'application/octet-stream' });
