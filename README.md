@@ -2,6 +2,8 @@
 
 Independent WebGL2 implementation of a macOS-style Liquid Glass effect and UI direction, reconstructed from public behavior analysis and measured/inferred values from the project handoff.
 
+Live demo (GitHub Pages): https://dasadasanudas.github.io/liquid-glass-replica/
+
 > This repository does **not** include Apple proprietary binaries, assets, or source code.
 
 ## Project layout
@@ -86,6 +88,14 @@ If browser automation cannot run in your environment, fallback manual verificati
 3. Confirm panel renders and responds to drag/resize.
 4. Toggle light/dark, regular/clear/subdued, Reduce Transparency, Increase Contrast.
 5. Confirm visual response and no WebGL compile errors in console.
+
+## Actions workflows
+
+- **Deploy GitHub Pages** (`.github/workflows/deploy-pages.yml`)
+  - Hosts the static demo online at: https://dasadasanudas.github.io/liquid-glass-replica/
+- **Value Sweep** (`.github/workflows/value-sweep.yml`)
+  - Runs `npm run extract:values` and uploads `artifacts/inferred-value-sweep.json`
+  - Use this workflow to regenerate missing inferred parameter tables from current formulas.
 
 ## Known limitations
 
